@@ -1,0 +1,32 @@
+
+# --- Auto-Start Docker Desktop ---
+# Verifica se o processo do Docker Desktop está rodando no Windows
+if ! tasklist.exe 2>/dev/null | grep -q "Docker Desktop.exe"; then
+    echo "🐳 Docker Desktop está desligado. Iniciando..."
+    # Inicia o executável do Windows em segundo plano
+    "/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe" &> /dev/null &
+    
+ function hack() {
+    # 1. Verifica se o Docker Engine responde
+    if ! docker info > /dev/null 2>&1; then
+        echo "🛑 Docker ainda está carregando ou fechado."
+        echo "Aguardando o motor iniciar (isso pode levar uns segundos)..."
+        
+        # Loop de espera até o Docker responder
+        while ! docker info > /dev/null 2>&1; do
+            echo -n "."
+            sleep 2
+        done
+        echo -e "\n✅ Docker Online!"
+    fi
+
+    # 2. Roda o container
+    docker run -it --hostname redteam --net=host -v $(pwd):/home/kali/ctf kali-redteam
+}   # (Opcional) Aviso para esperar um pouco
+    echo "⏳ Aguarde alguns segundos para o Docker engine subir antes de rodar o 'hack'."
+else
+    # Se já estiver rodando, não faz nada (silencioso)
+    :
+fi
+
+
