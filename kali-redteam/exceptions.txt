@@ -1,0 +1,17 @@
+# Exclui a pasta de dados do Docker
+Add-MpPreference -ExclusionPath "$env:LOCALAPPDATA\Docker"
+
+# Exclui a pasta onde ficam as distros WSL (Debian/Kali)
+Add-MpPreference -ExclusionPath "$env:LOCALAPPDATA\Packages"
+
+Add-MpPreference -ExclusionExtension ".vhdx"
+Add-MpPreference -ExclusionProcess "wsl.exe", "wslhost.exe", "docker.exe", "dockerd.exe", "com.docker.backend.exe"
+Get-MpPreference | Select-Object -ExpandProperty ExclusionPath
+Get-MpPreference | Select-Object -ExpandProperty ExclusionExtension
+
+Add-MpPreference -ExclusionPath "\\wsl.localhost\Debian"
+
+
+
+
+
