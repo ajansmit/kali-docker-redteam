@@ -1,0 +1,81 @@
+O Prefixo padrão é Ctrl + b (solte e aperte a próxima tecla).
+
+1. Gestão de Sessões (O "Macro")
+Comandos para rodar fora ou dentro do tmux para gerenciar seus laboratórios.
+
+tmux new -s nome: Cria uma sessão nova com nome (Ex: tmux new -s tryhackme).
+
+tmux a -t nome: Conecta (Attach) em uma sessão existente.
+
+tmux ls: Lista as sessões abertas (no terminal).
+
+Prefix + s: Abre a árvore de sessões (interativo - você já curtiu esse).
+
+Prefix + $: Renomeia a sessão atual.
+
+Prefix + d: Desacopla (Detach) - sai do tmux mas deixa tudo rodando no fundo.
+
+2. Janelas (Como abas do navegador)
+Para separar contextos (ex: uma janela para Nmap, outra para Exploit).
+
+Prefix + c: Cria nova janela (Create).
+
+Prefix + w: Lista janelas interativamente (Windows).
+
+Prefix + n: Próxima janela (Next).
+
+Prefix + p: Janela anterior (Previous).
+
+Prefix + ,: Renomeia a janela atual (útil para organizar: "nmap", "msf").
+
+Prefix + &: Fecha a janela atual (pede confirmação).
+
+3. Painéis (Splits - Onde a mágica acontece)
+Dividir a tela para ver código e execução ao mesmo tempo.
+
+Prefix + %: Divide verticalmente (Lado a lado).
+
+Prefix + ": Divide horizontalmente (Cima/Baixo).
+
+Prefix + z: Zoom (Foca no painel atual em tela cheia. Aperte de novo para voltar). Essencial para ler logs grandes.
+
+Prefix + x: Fecha o painel atual.
+
+Prefix + q: Mostra números dos painéis (aperte o número para pular pra ele).
+
+Prefix + { ou }: Troca o painel de lugar (Swap).
+
+Prefix + Space: Alterna layouts prontos (tenta organizar os painéis automaticamente).
+
+4. Modo de Cópia & Scroll (Copy Mode)
+Para ler histórico e copiar texto.
+
+Prefix + [: Entra no modo de cópia (permite rolar pra cima).
+
+Prefix + ]: Cola o que você copiou (Paste).
+
+Dentro do modo cópia (com sua config Vi):
+
+/: Pesquisa texto (igual Vim).
+
+n: Próximo resultado da busca.
+
+q: Sai do modo cópia.
+
+5. Manutenção
+Prefix + :: Abre o prompt de comando do tmux.
+
+Ex: source-file ~/.tmux.conf (Recarrega config).
+
+Prefix + ?: Mostra a lista de atalhos (Ajuda rápida).
+
+O "Kit de Sobrevivência" (Decore estes primeiro):
+Prefix + % (Split Vertical)
+
+Prefix + z (Zoom in/out)
+
+Prefix + [ (Rolar tela/Copiar)
+
+Prefix + s (Trocar de sessão)
+
+Prefix + d (Sair sem fechar)
