@@ -113,10 +113,32 @@ if ! shopt -oq posix; then
 fi
 # --- 1. Auto-Start Docker Desktop ---
 # Verifica se o processo do Docker Desktop está rodando no Windows
+if ! tasklist.exe 2>/dev/null | grep -q "Docker Desktop.exe"; then
+    echo "🐳 Docker Desktop está desligado. Iniciando..."
+    # Inicia o executável do Windows em segundo plano
+    "/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe" &> /dev/null &
+    
+    # Aviso para esperar um pouco
+    echo "⏳ Aguarde alguns segundos para o Docker engine subir antes de rodar o 'hack'."
+fi
 
 # --- 2. Função HACK ---
 function hack() {
+    # A. Verifica se o Docker Engine responde
+    if ! docker info > /dev/null 2>&1; then
+        echo "🛑 Docker ainda está carregando ou fechado."
+        echo "Aguardando o motor iniciar (isso pode levar uns segundos)..."
+        
+        # Loop de espera até o Docker responder
+        while ! docker info > /dev/null 2>&1; do
+            echo -n "."
+            sleep 2
+        done
+        echo -e "\n✅ Docker Online!"
+    fi
 
     # B. Roda o container
-    docker run -it --rm --hostname redteam --privileged --net=host -v "$(pwd)":/home/kali/ctf kali-redteam
+    # --cap-add=NET_ADMIN: Permite criar interfaces de rede (VPN)
+    # --device /dev/net/tun: Permite acesso ao driver de túnel
+    docker run -it --hostname redteam --cap-add=NET_ADMIN --device /dev/net/tun --net=host -v "$(pwd)":/home/kali/ctf kali-redteam
 }
