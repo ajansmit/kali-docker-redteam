@@ -35,7 +35,6 @@ RUN useradd -m -s /bin/bash -u 1000 kali && \
 
 
 # 4. Variáveis Globais
-ENV DISPLAY=:0
 ENV XKB_DEFAULT_LAYOUT=br
 ENV XKB_DEFAULT_MODEL=abnt2
 ENV GDK_BACKEND=x11
